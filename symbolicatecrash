@@ -57,7 +57,10 @@ my %entity2char = (
 #############################
 
 if(!defined($DEVELOPER_DIR)) {
-    die "Error: \"DEVELOPER_DIR\" is not defined";
+    # die "Error: \"DEVELOPER_DIR\" is not defined";
+    $DEVELOPER_DIR=`xcode-select -p`;
+    chomp $DEVELOPER_DIR;
+
 }
 
 # We will find these tools once we can guess the right SDK
