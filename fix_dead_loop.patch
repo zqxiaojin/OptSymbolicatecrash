@@ -1,0 +1,26 @@
+diff --git a/./symbolicatecrash b/UsersOld/liangjin/Desktop/UCProject_ssd/jsymbolicate/script/symbolicatecrash
+index d1f04c5..8356155 100755
+--- a/./symbolicatecrash
++++ b/UsersOld/liangjin/Desktop/UCProject_ssd/jsymbolicate/script/symbolicatecrash
+@@ -542,12 +542,16 @@ sub parse_images {
+                  last if ( !length($images{$nextIDKey}{nextID}) );
+                  $nextIDKey = $images{$nextIDKey}{nextID};
+              }
++
++            #avoid duplipcate image
++            if ($image{uuid} ne $images{$bundlename}{uuid}) {
++
++                # add ourselves to that chain
++                $images{$nextIDKey}{nextID} = $image{base};
+             
+-             # add ourselves to that chain
+-            $images{$nextIDKey}{nextID} = $image{base};
+-            
+-            # and store under the key we just recorded
+-            $bundlename = $bundlename . $image{base};
++                # and store under the key we just recorded
++                $bundlename = $bundlename . $image{base};
++            }
+         }
+         
+         # we are the end of the nextID chain

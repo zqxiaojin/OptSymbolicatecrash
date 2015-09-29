@@ -545,12 +545,16 @@ sub parse_images {
                  last if ( !length($images{$nextIDKey}{nextID}) );
                  $nextIDKey = $images{$nextIDKey}{nextID};
              }
+
+            #avoid duplipcate image
+            if ($image{uuid} ne $images{$bundlename}{uuid}) {
+
+                # add ourselves to that chain
+                $images{$nextIDKey}{nextID} = $image{base};
             
-             # add ourselves to that chain
-            $images{$nextIDKey}{nextID} = $image{base};
-            
-            # and store under the key we just recorded
-            $bundlename = $bundlename . $image{base};
+                # and store under the key we just recorded
+                $bundlename = $bundlename . $image{base};
+            }
         }
         
         # we are the end of the nextID chain
